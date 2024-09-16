@@ -13,3 +13,9 @@ class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
         fields = "__all__"
+
+    def validate_enabled(self, value):
+        if not isinstance(value, bool):
+            raise serializers.ValidationError("Enabled must be a boolean value.")
+        return value
+

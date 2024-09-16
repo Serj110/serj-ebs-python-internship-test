@@ -38,16 +38,25 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    'drf_yasg',
     # Third party apps
     "rest_framework",
     "rest_framework.authtoken",
     "corsheaders",
-    "drf_spectacular",
     # Local apps
     "apps.common",
     "apps.users",
     "apps.blog",
+    "drf_spectacular"
 ]
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'Basic': {
+            'type': 'basic'
+        }
+    }
+}
 
 MIDDLEWARE = [
     # Default Django middleware
@@ -211,5 +220,5 @@ SPECTACULAR_SETTINGS = {
     "TITLE": "EBS Internship Test",
     "DESCRIPTION": "EBS Internship Test API",
     "VERSION": "1.0.0",
-    "SERVE_INCLUDE_SCHEMA": True,
+    "SERVE_INCLUDE_SCHEMA": False,
 }

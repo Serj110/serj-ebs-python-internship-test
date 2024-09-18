@@ -15,3 +15,6 @@ class Blog(models.Model):
     posted = models.DateField(db_index=True, auto_now_add=True)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     enabled = models.BooleanField(default=True)   # New field to indicate if the blog is published or unpublished
+    name = models.CharField(max_length=255)
+    is_enabled = models.BooleanField(default=True)
+

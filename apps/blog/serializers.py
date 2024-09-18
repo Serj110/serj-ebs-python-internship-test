@@ -12,7 +12,8 @@ class CategorySerializer(serializers.ModelSerializer):
 class BlogSerializer(serializers.ModelSerializer):
     class Meta:
         model = Blog
-        fields = "__all__"
+        fields = ['id', 'title', 'slug', 'body', 'posted', 'category', 'enabled', 'comments']
+
 
     def validate_enabled(self, value):
         if not isinstance(value, bool):
@@ -30,3 +31,10 @@ class CommentSerializer(serializers.ModelSerializer):
         blog = Blog.objects.get(id=blog_id)
         comment = Comment.objects.create(blog=blog, **validated_data)
         return comment
+
+
+class BlogDetailSerializer(serializers.ModelSerializer):
+    comments = CommentSerializer(many=True, read_only=True)
+    class Meta:
+        model = Blog
+        fields = ['id', 'title', 'slug', 'body', 'posted', 'category', 'enabled', 'comments']

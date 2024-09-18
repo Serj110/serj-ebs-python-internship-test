@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework import generics
 
 from apps.blog.models import Blog, Category, Comment
-from apps.blog.serializers import BlogSerializer, CategorySerializer, CommentSerializer
+from apps.blog.serializers import BlogSerializer, CategorySerializer, CommentSerializer, BlogDetailSerializer
 from apps.common.permissions import ReadOnly
 
 
@@ -50,7 +50,17 @@ class CommentCreateView(generics.CreateAPIView):
             return Response({'error': 'blog_id and text are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create comment
-        serializer = self.get_serializer(data={'blog': blog_id, 'text': text})
+        serializer = self.get_serializer(data={'blog_id': blog_id, 'text': text})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class BlogDetailView(generics.RetrieveAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogDetailSerializer
+
+    def get(self, request, *args, **kwargs):
+        blog = self.get_object()
+        serializer = self.get_serializer(blog)
+        return Response(serializer.data)

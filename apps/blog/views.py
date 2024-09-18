@@ -3,6 +3,7 @@ from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
+from rest_framework import generics
 
 from apps.blog.models import Blog, Category
 from apps.blog.serializers import BlogSerializer, CategorySerializer
@@ -30,3 +31,8 @@ class BlogItemView(GenericAPIView):
     def get(self, request: Request, pk: int) -> Response:
         blog: Blog = get_object_or_404(Blog.objects.all(), pk=pk)
         return Response(self.get_serializer(blog).data)
+
+
+class BlogCreateView(generics.CreateAPIView):
+    queryset = Blog.objects.all()
+    serializer_class = BlogSerializer

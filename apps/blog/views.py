@@ -1,4 +1,4 @@
-from rest_framework import viewsets
+from rest_framework import viewsets, status
 from rest_framework.generics import GenericAPIView, get_object_or_404
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.request import Request
@@ -41,3 +41,16 @@ class BlogCreateView(generics.CreateAPIView):
 class CommentCreateView(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+
+    def create(self, request, *args, **kwargs):
+        blog_id = request.data.get('blog_id')
+        text = request.data.get('text')
+
+        if not blog_id or not text:
+            return Response({'error': 'blog_id and text are required.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        # Create comment
+        serializer = self.get_serializer(data={'blog': blog_id, 'text': text})
+        serializer.is_valid(raise_exception=True)
+        self.perform_create(serializer)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

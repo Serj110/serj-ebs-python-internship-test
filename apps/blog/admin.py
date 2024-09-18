@@ -12,7 +12,7 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ('title', 'slug')
     prepopulated_fields = {'slug': ('title',)}
 
-    
+
 class CommentAdmin(admin.ModelAdmin):
     list_display = ('text', 'blog', 'created_at')
     list_filter = ('blog',)

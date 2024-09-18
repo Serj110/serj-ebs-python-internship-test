@@ -50,7 +50,7 @@ class CommentCreateView(generics.CreateAPIView):
             return Response({'error': 'blog_id and text are required.'}, status=status.HTTP_400_BAD_REQUEST)
 
         # Create comment
-        serializer = self.get_serializer(data={'blog': blog_id, 'text': text})
+        serializer = self.get_serializer(data={'blog_id': blog_id, 'text': text})
         serializer.is_valid(raise_exception=True)
         self.perform_create(serializer)
         return Response(serializer.data, status=status.HTTP_201_CREATED)

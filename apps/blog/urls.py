@@ -16,6 +16,6 @@ urlpatterns = [
     path("blog/<int:pk>", BlogItemView.as_view(), name="blog-detail"),
     *router.urls,
     path('_new_api/blogs/', BlogCreateView.as_view(), name='blog-create'),
-    path('_new_api/comments/', CommentCreateView.as_view(), name='comment-create'),
-    # path('_new_api/blog&comments/<int:pk>/', BlogDetailView.as_view(), name='blog-detail'),
+    # path('_new_api/comments/', CommentCreateView.as_view(), name='comment-create'),
+    path('_new_api/blog&comments/<int:pk>/', BlogDetailView.as_view(), name='blog-detail'),
 ]

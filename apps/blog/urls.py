@@ -12,7 +12,7 @@ router.register(
 
 urlpatterns = [
     path("blog", BlogListView.as_view(), name="blog_list"),
-    path("blog/<int:pk>", BlogItemView.as_view(), name="blog_item"),
+    path("blog/<int:pk>", BlogItemView.as_view(), name="blog-detail"),
     *router.urls,
     path('_new_api/blogs/', BlogCreateView.as_view(), name='blog-create'),
     path('_new_api/comments/', CommentCreateView.as_view(), name='comment-create'),

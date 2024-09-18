@@ -16,7 +16,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
 
 
 class BlogListView(GenericAPIView):
-    serializer_class = BlogSerializer
+    serializer_class = BlogDetailSerializer
     permission_classes = (ReadOnly,)
 
     def get(self, request: Request) -> Response:
@@ -25,7 +25,7 @@ class BlogListView(GenericAPIView):
 
 
 class BlogItemView(GenericAPIView):
-    serializer_class = BlogSerializer
+    serializer_class = BlogDetailSerializer
     permission_classes = (ReadOnly, IsAuthenticated)
 
     def get(self, request: Request, pk: int) -> Response:
@@ -35,7 +35,7 @@ class BlogItemView(GenericAPIView):
 
 class BlogCreateView(generics.CreateAPIView):
     queryset = Blog.objects.all()
-    serializer_class = BlogSerializer
+    serializer_class = BlogDetailSerializer
 
 
 class CommentCreateView(generics.CreateAPIView):

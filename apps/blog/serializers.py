@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from apps.blog.models import Blog, Category
+from apps.blog.models import Blog, Category, Comment
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -19,3 +19,8 @@ class BlogSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Enabled must be a boolean value.")
         return value
 
+
+class CommentSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['id', 'text', 'blog', 'created_at']
